@@ -42,8 +42,19 @@ We choose this over time-triggered functions as it does not manage retries/failu
 ##  Folder Structure
 
 ├── billing_archiver/ 
-├── billing_dal/ 
+├── billing_da/ 
 ├── pipelines/ 
 ├── diagrams/ # Architecture 
 ├── README.md
 └── .gitignore
+
+
+## Implementations to make system more robust and prod ready
+
+- Enable CI/CD rollback or redeploy from last good build to avoid pipeline failures, also keep the infrastructure versioned(use IAC - bicep/ARM)
+- Enable Application insights in all function apps
+- To avoid unauthorized access, revoke public access, use security best practices, configure private endpoints for cosmos db and blob, set NSGs to specific subnet ranges and use managed identities and key vault for secrets
+- We can implement CDN to cache recently accessed data from cold storage tier to reduce latency and split blob files if file size is too large
+- To avoid archive function failure or timeout we can schedule it to run frequently with smaller batches but this might increase cost so we can create alert for function incase of failure, timeout, etc and we can restart instance manually if needed
+- To avoid duplication we can make the functions idempotent. we can use logging per record ID to avoid duplication or loss and make sure to verify the archival of data before deletion
+- to avoid our api becoming slow and failing to query cosmos db we can add auto scaling on cosmos Request Units and set retry policies and alerts when consumption is more than 80% 
