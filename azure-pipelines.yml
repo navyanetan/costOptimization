@@ -1,0 +1,21 @@
+# Trigger on push to 'main' branch
+# Trigger on push to 'dev' branch
+
+# build agent - ubuntu or windows
+
+# Define variables:
+#     - Azure service connection
+#     - Names for billing_api and billing_archiver apps
+
+
+# Steps:
+#   - Use Python 3.10
+#   - Install dependencies from requirements.txt
+
+#   For billing_archiver:
+#     - Zip billing_archiver folder
+#     - Deploy using AzureFunctionApp@1 task
+
+#   For billing_api:
+#     - Zip billing_api folder
+#     - Deploy using AzureFunctionApp@1 task
