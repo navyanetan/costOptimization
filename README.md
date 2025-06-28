@@ -39,14 +39,9 @@ We choose this over time-triggered functions as it does not manage retries/failu
 
 ---
 
-##  Folder Structure
+##  Alternative
+Instead of scheduling a function to periodically move old records, we can leverage Cosmos DB's Change Feed to detect inserts in real-time and asynchronously archive records via a message queue and a worker function. We can also use Azure Cognitive Search on top of archived blobs for filtering on cold data and fetching using pointers for fast retrieval.
 
-├── billing_archiver/ 
-├── billing_da/ 
-├── pipelines/ 
-├── diagrams/ # Architecture 
-├── README.md
-└── .gitignore
 
 
 ## Implementations to make system more robust and prod ready
